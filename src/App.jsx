@@ -1,5 +1,6 @@
 import { GameHeader } from "./Components/GameHeader";
 import { Card } from "./Components/Card";
+import { useEffect, useState } from "react";
 
 const cardValues = [
   "🍎",
@@ -22,29 +23,30 @@ const cardValues = [
 
 function App() {
   const [cards, setCards] = useState([]);
-  
+
   const initializeGame = () => {
     // Shuffle The cards
+    console.log(cardValues);
+    const finalCards = cardValues.map((value, index) => ({
+      id: index,
+      value,
+      isFlipped: false,
+      isMatched: false,
+    }));
 
-    setCards(cardValues.map(cardValues, index) => ({
-        id: index,
-        value,
-        isFlipped: false,
-        isMatched: false;
-      }
-    )
-    );
-
-      console.log(cards);)
-
+    setCards(finalCards);
   };
+
+  useEffect(() => {
+    initializeGame();
+  }, []);
 
   return (
     <div className="app">
       <GameHeader score={3} moves={10} />
 
       <div className="cards-grid">
-        {cardValues.map((card) => (
+        {cards.map((card) => (
           <Card card={card} />
         ))}
       </div>
